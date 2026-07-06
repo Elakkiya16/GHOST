@@ -1,0 +1,13 @@
+tensorflow==2.19.0
+torch==2.1.1 #install with cuda: follow instructions on torch website (paper results use CUDA 12.2 + V100)
+adversarial-robustness-toolbox==1.20.1
+keras==3.10.0
+pandas==1.5.3
+tensorflow-datasets==4.9.9
+tensorflow-estimator==2.3.0
+tensorflow-metadata==1.17.2
+tensorflow-probability==0.20.1
+torchvision==0.16.0
+cryptography>=41.0.0
+scikit-image>=0.21.0
+scikit-learn>=1.3.0

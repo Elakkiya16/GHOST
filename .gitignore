@@ -1,0 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# ML / model artifacts
+*.pth
+*.pt
+*.ckpt
+*.pkl
+*.h5
+*.hdf5
+*.safetensors
+*.onnx
+
+# Data
+data/
+!data/.gitkeep
+*.tar.gz
+*.zip
+*.csv
+*.parquet
+*.npy
+*.npz
+
+# Outputs & logs
+outputs/
+!outputs/.gitkeep
+logs/
+!logs/.gitkeep
+runs/
+wandb/
+mlruns/
+*.log
+
+# Secrets & config overrides
+*.json
+!shuffle_map.json
+.env
+.env.*
+secrets/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test images / temp files
+test.jpg
+test.png
+*.tmp
+*.pdf
