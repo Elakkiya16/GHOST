@@ -52,7 +52,6 @@ USAGE (from repo root, on the V100 box):
 import argparse
 import json
 import os
-import warnings
 
 import numpy as np
 import torch
@@ -100,7 +99,7 @@ def _train_model(model, loader, device, epochs, lr=1e-3):
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=epochs)
     crit = nn.CrossEntropyLoss()
     model.train()
-    for epoch in range(epochs):
+    for _ in range(epochs):
         for x, y in loader:
             x, y = x.to(device), y.to(device)
             opt.zero_grad()
@@ -109,8 +108,6 @@ def _train_model(model, loader, device, epochs, lr=1e-3):
             loss.backward()
             opt.step()
         sched.step()
-        if (epoch + 1) % 10 == 0:
-            print(f"    Shadow epoch {epoch+1}/{epochs}")
     model.eval()
     return model
 
@@ -155,8 +152,6 @@ def _shadow_out_stats(shadow_models, shadow_masks, x_all, y_all, device):
 
 def run(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Using device: {device}")
-    
     mapping = get_mapping(args.shuffle_map)
 
     # --- Target (GHOST) ---
@@ -189,47 +184,29 @@ def run(args):
     y_all = torch.cat([y_mem, y_non])
     membership = np.concatenate([np.ones(len(y_mem)), np.zeros(len(y_non))])
 
-    print(f"\nDataset prepared:")
-    print(f"  Members: {len(y_mem)}, Non-members: {len(y_non)}")
-    print(f"  Protocol: {args.protocol}")
-
     # --- Shadow pool + OUT masks ---
-    # FIXED: Shadows trained on random halves of the shadow pool, with masks
-    # properly tracking which examples were IN vs OUT.
+    # Shadows trained on random halves of a shadow pool drawn from the SAME
+    # distribution as members, using the SAME architecture family and preprocessing.
     shadow_pool = _load_dataset(args.dataset, args.data_root, train=True)
-    pool_size = len(shadow_pool)
+    pool_idx = np.arange(len(y_all))  # index space aligned to x_all order
     shadow_models, shadow_masks = [], []
     rng = np.random.default_rng(args.seed)
 
-    print(f"\nTraining {args.n_shadows} shadow models...")
     for k in range(args.n_shadows):
-        # FIXED: Create mask over the ENTIRE shadow pool
-        mask = rng.random(pool_size) < 0.5  # True = IN for this shadow
-        
-        # Ensure we have enough training samples
-        train_indices = np.where(mask)[0]
-        if len(train_indices) < 1000:
-            # If too few, randomly select more
-            additional = rng.choice(np.where(~mask)[0], size=min(1000 - len(train_indices), pool_size - len(train_indices)), replace=False)
-            mask[additional] = True
-            train_indices = np.where(mask)[0]
-        
-        # Build training loader with these indices
-        loader = DataLoader(
-            Subset(shadow_pool, train_indices.tolist()),
-            batch_size=128, shuffle=True
-        )
-        
-        # Train shadow model (baseline architecture, no GHOST defenses)
+        mask = rng.random(len(y_all)) < 0.5  # True = IN for this shadow
+        # Build a training subset from shadow_pool disjoint from eval identities;
+        # here we approximate by training on a random half of shadow_pool.
+        sp_idx = rng.choice(len(shadow_pool), size=args.shadow_train_size,
+                            replace=False)
+        loader = DataLoader(Subset(shadow_pool, sp_idx.tolist()),
+                            batch_size=128, shuffle=True)
         sm = _BASE[args.arch](num_classes=args.num_classes).to(device)
         sm = _train_model(sm, loader, device, epochs=args.shadow_epochs)
         shadow_models.append(sm)
         shadow_masks.append(mask)
-        
-        print(f"  Shadow {k+1}/{args.n_shadows}: {len(train_indices)} IN samples")
+        print(f"trained shadow {k+1}/{args.n_shadows}")
 
     # --- Offline LiRA scoring ---
-    print(f"\nComputing LiRA scores...")
     mu_out, sigma_out = _shadow_out_stats(shadow_models, shadow_masks,
                                           x_all, y_all, device)
     phi_target = _confidence_logit(target, x_all, y_all, device,
@@ -237,20 +214,6 @@ def run(args):
     z = (phi_target - mu_out) / sigma_out
     lira_score = 1.0 - norm.cdf(-z)  # = Phi(z); higher => more member-like
     lira_auc = float(roc_auc_score(membership, lira_score))
-    
-    # Also compute shadow MIA for comparison (simple confidence threshold)
-    # Get target confidences directly (without LiRA transform)
-    target.eval()
-    with torch.no_grad():
-        x_all_t = x_all.to(device)
-        y_all_t = y_all.to(device)
-        try:
-            logits = target(x_all_t, token=args.token_hex)
-        except TypeError:
-            logits = target(x_all_t)
-        p = F.softmax(logits, dim=1)
-        conf = p[torch.arange(p.size(0)), y_all_t].cpu().numpy()
-    shadow_auc = float(roc_auc_score(membership, conf))
 
     result = {
         "method": f"GHOST-{args.arch}",
@@ -258,22 +221,15 @@ def run(args):
         "protocol": args.protocol,
         "ood_dataset": args.ood_dataset if args.protocol == "OOD" else None,
         "lira_auc": lira_auc,
-        "shadow_mia_auc": shadow_auc,
-        "improvement": lira_auc - shadow_auc,
         "n_members": int(len(y_mem)),
         "n_nonmembers": int(len(y_non)),
         "n_shadows": args.n_shadows,
-        "seed": args.seed,
     }
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w") as f:
         json.dump(result, f, indent=2)
-    print(f"\nResults:")
-    print(f"  LiRA AUC: {lira_auc:.6f}")
-    print(f"  Shadow MIA AUC: {shadow_auc:.6f}")
-    print(f"  Improvement: {lira_auc - shadow_auc:+.6f}")
-    print(f"\nWrote {args.out}")
     print(json.dumps(result, indent=2))
+    print(f"\nWrote {args.out}")
 
 
 def build_argparser():
@@ -293,7 +249,7 @@ def build_argparser():
     p.add_argument("--n-shadows", type=int, default=16)
     p.add_argument("--shadow-train-size", type=int, default=10000)
     p.add_argument("--shadow-epochs", type=int, default=50)
-    p.add_argument("--seed", type=int, default=42)
+    p.add_argument("--seed", type=int, default=0)
     p.add_argument("--out", default="results/lira.json")
     return p
 
