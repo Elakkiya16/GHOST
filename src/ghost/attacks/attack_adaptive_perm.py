@@ -54,7 +54,6 @@ are hard-coded here.
 import argparse
 import json
 import os
-import warnings
 
 import numpy as np
 import torch
@@ -66,9 +65,8 @@ from torchvision import datasets, transforms
 try:
     from scipy.optimize import linear_sum_assignment
     _HAS_SCIPY = True
-except ImportError:
+except Exception:
     _HAS_SCIPY = False
-    warnings.warn("scipy not installed; using greedy fallback for assignment")
 
 from src.ghost.utils import SpatialPerm, get_mapping
 from src.ghost.models import (
@@ -115,6 +113,7 @@ def _collect_permuted_activations(model, perm_module, probe_loader, device, max_
     model.eval()
     with torch.no_grad():
         for bi, (x, _) in enumerate(probe_loader):
+            captured.clear() if False else None  # keep all
             x = x.to(device)
             # token: model forward requires a valid token to pass the gates; the
             # permutation modules fire regardless of gate outcome because the hook is
@@ -175,12 +174,11 @@ def correlation_adversary(acts, H, W):
     return cand
 
 
-def supervised_adversary(acts, H, W, true_perm, device, epochs=30, early_stopping_patience=10):
+def supervised_adversary(acts, H, W, true_perm, device, epochs=30):
     """Adversary (B): train an MLP to predict source position from the permuted
     activation's per-position feature vector across channels.
 
     This is a generous upper bound: it assumes the adversary can label positions.
-    FIXED: Added early stopping and validation split.
     """
     N, C, _, _ = acts.shape
     n = H * W
@@ -189,58 +187,22 @@ def supervised_adversary(acts, H, W, true_perm, device, epochs=30, early_stoppin
     X = acts.mean(dim=0).reshape(C, n).T.to(device)   # [n, C]
     y = torch.tensor(true_perm, dtype=torch.long, device=device)  # out pos -> src pos
 
-    # Train/validation split (80/20)
-    n_train = int(n * 0.8)
-    idx = torch.randperm(n, device=device)
-    X_train, y_train = X[idx[:n_train]], y[idx[:n_train]]
-    X_val, y_val = X[idx[n_train:]], y[idx[n_train:]]
-
     clf = nn.Sequential(
         nn.Linear(C, 128), nn.ReLU(),
-        nn.Linear(128, 256), nn.ReLU(),
-        nn.Linear(256, n),
+        nn.Linear(128, n),
     ).to(device)
     opt = torch.optim.Adam(clf.parameters(), lr=1e-3)
     lossf = nn.CrossEntropyLoss()
-    
-    best_val_loss = float('inf')
-    no_improve = 0
-    best_epoch = 0
-    
     clf.train()
-    for epoch in range(epochs):
+    for _ in range(epochs):
         opt.zero_grad()
-        logits = clf(X_train)
-        loss = lossf(logits, y_train)
+        logits = clf(X)
+        loss = lossf(logits, y)
         loss.backward()
         opt.step()
-        
-        # Validation
-        clf.eval()
-        with torch.no_grad():
-            val_logits = clf(X_val)
-            val_loss = lossf(val_logits, y_val)
-            val_acc = (val_logits.argmax(dim=1) == y_val).float().mean().item()
-        
-        if val_loss < best_val_loss:
-            best_val_loss = val_loss
-            no_improve = 0
-            best_epoch = epoch
-        else:
-            no_improve += 1
-            if no_improve >= early_stopping_patience:
-                break
-        
-        clf.train()
-    
-    # Final prediction on all data
     clf.eval()
     with torch.no_grad():
         pred = clf(X).argmax(dim=1).cpu().numpy()
-    
-    # Print training summary
-    print(f"    Supervised: trained {best_epoch+1} epochs, best val acc={best_val_loss:.4f}")
-    
     return pred
 
 
@@ -251,8 +213,6 @@ def _position_accuracy(cand_inv, true_perm):
 
 def run(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Using device: {device}")
-    
     mapping = get_mapping(args.shuffle_map)
     model_cls = _ARCHES[args.arch]
     model = model_cls(mapping, num_classes=args.num_classes,
