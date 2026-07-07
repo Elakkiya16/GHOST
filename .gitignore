@@ -23,6 +23,7 @@ ENV/
 # ML / model artifacts
 *.pth
 *.pt
+!checkpoints/ghost_resnet18_cifar10.pt
 *.ckpt
 *.pkl
 *.h5
@@ -43,16 +44,20 @@ data/
 # Outputs & logs
 outputs/
 !outputs/.gitkeep
-logs/
-!logs/.gitkeep
+logs/*
 runs/
 wandb/
 mlruns/
 *.log
+!logs/.gitkeep
+!logs/train_backbones.log
+!logs/attack_adaptive_perm.log
+!logs/attack_lira.log
 
 # Secrets & config overrides
 *.json
 !shuffle_map.json
+!results/*.json
 .env
 .env.*
 secrets/

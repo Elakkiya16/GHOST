@@ -1,0 +1,93 @@
+{
+  "arch": "resnet18",
+  "dataset": "cifar10",
+  "n_probe": 2000,
+  "mean_position_accuracy_corr": 0.3046875,
+  "mean_position_accuracy_sup": 0.9095052083333334,
+  "per_layer": [
+    {
+      "layer_index": 0,
+      "hw": 256,
+      "position_accuracy_corr": 0.0,
+      "position_accuracy_sup": 0.4765625,
+      "random_baseline": 0.00390625
+    },
+    {
+      "layer_index": 1,
+      "hw": 64,
+      "position_accuracy_corr": 0.0,
+      "position_accuracy_sup": 0.515625,
+      "random_baseline": 0.015625
+    },
+    {
+      "layer_index": 2,
+      "hw": 64,
+      "position_accuracy_corr": 0.03125,
+      "position_accuracy_sup": 0.984375,
+      "random_baseline": 0.015625
+    },
+    {
+      "layer_index": 3,
+      "hw": 16,
+      "position_accuracy_corr": 0.0625,
+      "position_accuracy_sup": 1.0,
+      "random_baseline": 0.0625
+    },
+    {
+      "layer_index": 4,
+      "hw": 16,
+      "position_accuracy_corr": 0.0625,
+      "position_accuracy_sup": 0.9375,
+      "random_baseline": 0.0625
+    },
+    {
+      "layer_index": 5,
+      "hw": 16,
+      "position_accuracy_corr": 0.0,
+      "position_accuracy_sup": 1.0,
+      "random_baseline": 0.0625
+    },
+    {
+      "layer_index": 6,
+      "hw": 4,
+      "position_accuracy_corr": 0.0,
+      "position_accuracy_sup": 1.0,
+      "random_baseline": 0.25
+    },
+    {
+      "layer_index": 7,
+      "hw": 4,
+      "position_accuracy_corr": 0.25,
+      "position_accuracy_sup": 1.0,
+      "random_baseline": 0.25
+    },
+    {
+      "layer_index": 8,
+      "hw": 4,
+      "position_accuracy_corr": 0.25,
+      "position_accuracy_sup": 1.0,
+      "random_baseline": 0.25
+    },
+    {
+      "layer_index": 9,
+      "hw": 1,
+      "position_accuracy_corr": 1.0,
+      "position_accuracy_sup": 1.0,
+      "random_baseline": 1.0
+    },
+    {
+      "layer_index": 10,
+      "hw": 1,
+      "position_accuracy_corr": 1.0,
+      "position_accuracy_sup": 1.0,
+      "random_baseline": 1.0
+    },
+    {
+      "layer_index": 11,
+      "hw": 1,
+      "position_accuracy_corr": 1.0,
+      "position_accuracy_sup": 1.0,
+      "random_baseline": 1.0
+    }
+  ]
+}

@@ -67,6 +67,7 @@ from src.ghost.models import (
     GHOST_ResNet18, GHOST_ResNet50, GHOST_MobileNetV3,
     BaselineResNet18, BaselineResNet50, BaselineMobileNetV3,
 )
+from src.ghost.attacks.hf_datasets import HFImageDataset
 
 _GHOST = {"resnet18": GHOST_ResNet18, "resnet50": GHOST_ResNet50,
           "mobilenetv3": GHOST_MobileNetV3}
@@ -84,10 +85,8 @@ def _tf():
 
 def _load_dataset(name, root, train):
     tf = _tf()
-    if name == "cifar10":
-        return datasets.CIFAR10(root, train=train, download=True, transform=tf)
-    if name == "cifar100":
-        return datasets.CIFAR100(root, train=train, download=True, transform=tf)
+    if name in ("cifar10", "cifar100"):
+        return HFImageDataset(name, root, train=train, transform=tf)
     if name == "svhn":
         return datasets.SVHN(root, split="train" if train else "test",
                              download=True, transform=tf)
@@ -151,7 +150,11 @@ def _shadow_out_stats(shadow_models, shadow_masks, x_all, y_all, device):
 
 
 def run(args):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device(
+        "cuda" if torch.cuda.is_available()
+        else "mps" if torch.backends.mps.is_available()
+        else "cpu"
+    )
     mapping = get_mapping(args.shuffle_map)
 
     # --- Target (GHOST) ---
@@ -180,6 +183,16 @@ def run(args):
 
     x_mem, y_mem = _stack(members)
     x_non, y_non = _stack(nonmembers)
+    if args.protocol == "OOD":
+        # OOD non-members (e.g. CIFAR-100 fine labels) don't live in the target's
+        # 10-way CIFAR-10 label space, so their true label can't index the softmax.
+        # Assign a fixed, model-independent random label per sample instead (same
+        # label used when scoring the target AND every shadow) so no single model
+        # is favoured -- using e.g. the target's own top-1 prediction would bias
+        # the target's confidence upward by construction and invert the AUC.
+        rng_labels = np.random.default_rng(args.seed)
+        y_non = torch.tensor(rng_labels.integers(0, args.num_classes, size=len(y_non)),
+                              dtype=torch.long)
     x_all = torch.cat([x_mem, x_non])
     y_all = torch.cat([y_mem, y_non])
     membership = np.concatenate([np.ones(len(y_mem)), np.zeros(len(y_non))])
@@ -193,11 +206,15 @@ def run(args):
     rng = np.random.default_rng(args.seed)
 
     for k in range(args.n_shadows):
-        mask = rng.random(len(y_all)) < 0.5  # True = IN for this shadow
-        # Build a training subset from shadow_pool disjoint from eval identities;
-        # here we approximate by training on a random half of shadow_pool.
         sp_idx = rng.choice(len(shadow_pool), size=args.shadow_train_size,
                             replace=False)
+        # True = IN for this shadow. shadow_pool is the same dataset/split as the
+        # members Subset (train_ds, indices [0, n_members)), so member i is IN shadow
+        # k iff dataset index i was actually drawn into sp_idx. Non-members come from
+        # a disjoint split/dataset (held-out test set, or an OOD dataset entirely), so
+        # they were never in shadow_pool and are always OUT.
+        mask = np.zeros(len(y_all), dtype=bool)
+        mask[:len(y_mem)] = np.isin(np.arange(len(y_mem)), sp_idx)
         loader = DataLoader(Subset(shadow_pool, sp_idx.tolist()),
                             batch_size=128, shuffle=True)
         sm = _BASE[args.arch](num_classes=args.num_classes).to(device)

@@ -1,0 +1,10 @@
+{
+  "method": "GHOST-resnet18",
+  "dataset": "cifar10",
+  "protocol": "OOD",
+  "ood_dataset": "cifar100",
+  "lira_auc": 0.17912622,
+  "n_members": 5000,
+  "n_nonmembers": 5000,
+  "n_shadows": 16
+}

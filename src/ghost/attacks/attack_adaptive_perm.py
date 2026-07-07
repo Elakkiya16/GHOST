@@ -72,6 +72,7 @@ from src.ghost.utils import SpatialPerm, get_mapping
 from src.ghost.models import (
     GHOST_ResNet18, GHOST_ResNet50, GHOST_MobileNetV3,
 )
+from src.ghost.attacks.hf_datasets import HFImageDataset
 
 _ARCHES = {
     "resnet18": GHOST_ResNet18,
@@ -86,10 +87,8 @@ def _build_loader(dataset, root, n_probe, batch_size=128):
         transforms.ToTensor(),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
     ])
-    if dataset == "cifar10":
-        ds = datasets.CIFAR10(root, train=False, download=True, transform=tf)
-    elif dataset == "cifar100":
-        ds = datasets.CIFAR100(root, train=False, download=True, transform=tf)
+    if dataset in ("cifar10", "cifar100"):
+        ds = HFImageDataset(dataset, root, train=False, transform=tf)
     elif dataset == "svhn":
         ds = datasets.SVHN(root, split="test", download=True, transform=tf)
     else:
@@ -149,6 +148,10 @@ def correlation_adversary(acts, H, W):
     """
     N, C, _, _ = acts.shape
     n = H * W
+    if n == 1:
+        # A single spatial position has exactly one permutation (the identity);
+        # np.cov degenerates to a 0-d scalar here, so short-circuit instead.
+        return np.zeros(1, dtype=np.int64)
     flat = acts.reshape(N * C, n).numpy()            # rows = samples*channels
     flat = flat - flat.mean(axis=0, keepdims=True)
     cov = np.cov(flat, rowvar=False)                 # [n, n] observed covariance
@@ -212,7 +215,11 @@ def _position_accuracy(cand_inv, true_perm):
 
 
 def run(args):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device(
+        "cuda" if torch.cuda.is_available()
+        else "mps" if torch.backends.mps.is_available()
+        else "cpu"
+    )
     mapping = get_mapping(args.shuffle_map)
     model_cls = _ARCHES[args.arch]
     model = model_cls(mapping, num_classes=args.num_classes,

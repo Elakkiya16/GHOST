@@ -1,0 +1,28 @@
+trained shadow 1/16
+trained shadow 2/16
+trained shadow 3/16
+trained shadow 4/16
+trained shadow 5/16
+trained shadow 6/16
+trained shadow 7/16
+trained shadow 8/16
+trained shadow 9/16
+trained shadow 10/16
+trained shadow 11/16
+trained shadow 12/16
+trained shadow 13/16
+trained shadow 14/16
+trained shadow 15/16
+trained shadow 16/16
+{
+  "method": "GHOST-resnet18",
+  "dataset": "cifar10",
+  "protocol": "OOD",
+  "ood_dataset": "cifar100",
+  "lira_auc": 0.17912622,
+  "n_members": 5000,
+  "n_nonmembers": 5000,
+  "n_shadows": 16
+}
+
+Wrote results/lira_resnet18_cifar10_ood.json
