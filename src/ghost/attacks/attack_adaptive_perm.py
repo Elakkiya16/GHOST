@@ -177,18 +177,34 @@ def correlation_adversary(acts, H, W):
     return cand
 
 
-def supervised_adversary(acts, H, W, true_perm, device, epochs=30):
-    """Adversary (B): train an MLP to predict source position from the permuted
-    activation's per-position feature vector across channels.
+def supervised_adversary(acts, H, W, true_perm, device, epochs=100, train_frac=0.8, seed=0):
+    """Adversary (B): train an MLP on a HELD-OUT split of probe *images* to predict
+    source position from a single image's per-position feature vector, then
+    evaluate generalization on a disjoint set of probe images.
 
-    This is a generous upper bound: it assumes the adversary can label positions.
+    Earlier version trained and evaluated on the same mean-pooled, single-row-per-
+    position dataset (n rows total, n <= 256) with the true permutation as labels --
+    that lets a small MLP simply memorize a tiny fully-supervised bijective lookup
+    table and says nothing about whether the permutation is learnable from unseen
+    inputs. This version splits by probe image instead: the classifier only ever
+    sees TRAIN-split images during training and is scored on TEST-split images it
+    has never seen, so high accuracy here reflects genuine generalization.
     """
     N, C, _, _ = acts.shape
     n = H * W
-    # Feature per position: the C-dim channel vector at that position, averaged over
-    # a subset of probe samples to denoise. Input dim = C. Target = source index.
-    X = acts.mean(dim=0).reshape(C, n).T.to(device)   # [n, C]
-    y = torch.tensor(true_perm, dtype=torch.long, device=device)  # out pos -> src pos
+    per_image = acts.reshape(N, C, n).permute(0, 2, 1)  # [N, n, C]
+
+    g = torch.Generator().manual_seed(seed)
+    order = torch.randperm(N, generator=g)
+    n_train = max(1, int(N * train_frac))
+    train_idx, test_idx = order[:n_train], order[n_train:]
+    if len(test_idx) == 0:
+        test_idx = train_idx  # degenerate (tiny N): fall back rather than crash
+
+    y = torch.tensor(true_perm, dtype=torch.long, device=device)  # fixed across images
+    X_train = per_image[train_idx].reshape(-1, C).to(device)
+    y_train = y.repeat(len(train_idx))
+    X_test = per_image[test_idx].reshape(-1, C).to(device)
 
     clf = nn.Sequential(
         nn.Linear(C, 128), nn.ReLU(),
@@ -199,14 +215,15 @@ def supervised_adversary(acts, H, W, true_perm, device, epochs=30):
     clf.train()
     for _ in range(epochs):
         opt.zero_grad()
-        logits = clf(X)
-        loss = lossf(logits, y)
+        loss = lossf(clf(X_train), y_train)
         loss.backward()
         opt.step()
     clf.eval()
     with torch.no_grad():
-        pred = clf(X).argmax(dim=1).cpu().numpy()
-    return pred
+        pred_per_image = clf(X_test).argmax(dim=1).reshape(len(test_idx), n)
+        # One prediction per held-out image; aggregate per position via majority vote.
+        cand = pred_per_image.cpu().mode(dim=0).values.numpy()
+    return cand
 
 
 def _position_accuracy(cand_inv, true_perm):
@@ -262,15 +279,23 @@ def run(args):
               f"| sup acc={acc_sup if acc_sup is None else round(acc_sup,4)} "
               f"| chance={1.0/hw:.4g}")
 
+    # Layers with hw==1 have exactly one possible permutation (the identity) --
+    # "100% recovery" there is a tautology, not an adversarial result, and blending
+    # it into a mean overstates recovery on the layers that actually matter.
+    nontrivial = [l for l in per_layer if l["hw"] > 1]
+    trivial = [l for l in per_layer if l["hw"] == 1]
+
     summary = {
         "arch": args.arch,
         "dataset": args.dataset,
         "n_probe": args.n_probe,
-        "mean_position_accuracy_corr":
-            float(np.mean([l["position_accuracy_corr"] for l in per_layer])),
-        "mean_position_accuracy_sup":
-            (float(np.mean([l["position_accuracy_sup"] for l in per_layer]))
-             if args.run_supervised else None),
+        "n_trivial_layers_excluded": len(trivial),
+        "mean_position_accuracy_corr_nontrivial":
+            (float(np.mean([l["position_accuracy_corr"] for l in nontrivial]))
+             if nontrivial else None),
+        "mean_position_accuracy_sup_nontrivial":
+            (float(np.mean([l["position_accuracy_sup"] for l in nontrivial]))
+             if args.run_supervised and nontrivial else None),
         "per_layer": per_layer,
     }
     os.makedirs(os.path.dirname(args.out), exist_ok=True)

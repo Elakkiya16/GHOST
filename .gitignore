@@ -52,12 +52,18 @@ mlruns/
 !logs/.gitkeep
 !logs/train_backbones.log
 !logs/attack_adaptive_perm.log
-!logs/attack_lira.log
+# attack_lira.log intentionally NOT allow-listed: LiRA calibration against
+# GHOST is unresolved (see results/LIRA_STATUS.md) -- no run log is "the"
+# result, so none should sit in the repo looking like one.
 
 # Secrets & config overrides
 *.json
 !shuffle_map.json
 !results/*.json
+# LiRA result intentionally excluded: calibration against GHOST is unresolved
+# after multiple fix attempts (see results/LIRA_STATUS.md) -- no run so far
+# produces a trustworthy number, so none should be committed as if it were one.
+results/lira_resnet18_cifar10_ood.json
 .env
 .env.*
 secrets/

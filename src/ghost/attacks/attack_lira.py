@@ -50,8 +50,10 @@ USAGE (from repo root, on the V100 box):
 """
 
 import argparse
+import hashlib
 import json
 import os
+import secrets
 
 import numpy as np
 import torch
@@ -102,7 +104,18 @@ def _train_model(model, loader, device, epochs, lr=1e-3):
         for x, y in loader:
             x, y = x.to(device), y.to(device)
             opt.zero_grad()
-            out = model(x) if not hasattr(model, "fakes") else model(x, token=getattr(model, "_tok", ""))
+            if hasattr(model, "fakes"):
+                # Match the target's training procedure: a randomly selected decoy
+                # path per batch, so all N decoy branches get trained (the paper's
+                # shared-batchnorm ensemble-regularization design). Always using the
+                # default key=0 here (as before) leaves shadows' other 7 decoy paths
+                # randomly-initialized and untrained -- a structural mismatch from
+                # the target that biased LiRA's calibration independent of
+                # architecture family or epoch/data-size matching.
+                key = torch.randint(0, len(model.fakes), (1,)).item()
+                out = model(x, key=key, token=getattr(model, "_tok", ""))
+            else:
+                out = model(x)
             loss = crit(out, y)
             loss.backward()
             opt.step()
@@ -136,7 +149,7 @@ def _shadow_out_stats(shadow_models, shadow_masks, x_all, y_all, device):
     n = len(y_all)
     per_example = [[] for _ in range(n)]
     for k, sm in enumerate(shadow_models):
-        phi = _confidence_logit(sm, x_all, y_all, device)
+        phi = _confidence_logit(sm, x_all, y_all, device, token=getattr(sm, "_tok", ""))
         out_idx = np.where(~shadow_masks[k])[0]
         for i in out_idx:
             per_example[i].append(phi[i])
@@ -217,11 +230,51 @@ def run(args):
         mask[:len(y_mem)] = np.isin(np.arange(len(y_mem)), sp_idx)
         loader = DataLoader(Subset(shadow_pool, sp_idx.tolist()),
                             batch_size=128, shuffle=True)
-        sm = _BASE[args.arch](num_classes=args.num_classes).to(device)
+        if args.shadow_arch_family == "ghost":
+            # Match the target's architecture family (permutations + decoys + token
+            # gates), not just its input pipeline. Offline LiRA's OUT-calibration
+            # assumes shadows approximate "the target without this example" -- that
+            # only holds if shadows share the target's confidence-flattening design.
+            # A plain baseline shadow is architecturally over-confident relative to
+            # GHOST, which biases the target's z-score negative regardless of real
+            # membership. Each shadow gets its own random gate token (only needs to
+            # be self-consistent, not match the target's).
+            shadow_tok = secrets.token_bytes(32).hex()
+            shadow_tok_hash = hashlib.sha256(bytes.fromhex(shadow_tok)).hexdigest()
+            sm = _GHOST[args.arch](mapping, num_classes=args.num_classes,
+                                   token_hash=shadow_tok_hash).to(device)
+            sm._tok = shadow_tok
+        else:
+            sm = _BASE[args.arch](num_classes=args.num_classes).to(device)
         sm = _train_model(sm, loader, device, epochs=args.shadow_epochs)
         shadow_models.append(sm)
         shadow_masks.append(mask)
         print(f"trained shadow {k+1}/{args.n_shadows}")
+
+    # --- Sanity control: leave-one-shadow-out AUC, architecture-matched ---
+    # Score shadow_models[0] itself as a stand-in "undefended" target against the
+    # OTHER 15 shadows' OUT statistics, using shadow_masks[0] as ground-truth
+    # membership (shadow 0's own known IN/OUT split). This is Baseline-vs-Baseline,
+    # so it validates the offline-LiRA scoring pipeline's orientation independent of
+    # any GHOST-vs-Baseline calibration mismatch, at zero extra training cost --
+    # every shadow needed for this is already trained for the main computation.
+    # If this control does NOT come out clearly > 0.5, the scoring math itself is
+    # broken and the GHOST number below cannot be trusted regardless of its value.
+    control_auc = None
+    if args.n_shadows >= 2:
+        control_membership = shadow_masks[0].astype(float)
+        if control_membership.min() != control_membership.max():
+            mu_c, sigma_c = _shadow_out_stats(shadow_models[1:], shadow_masks[1:],
+                                              x_all, y_all, device)
+            phi_c = _confidence_logit(shadow_models[0], x_all, y_all, device,
+                                      token=getattr(shadow_models[0], "_tok", ""))
+            z_c = (phi_c - mu_c) / sigma_c
+            score_c = norm.cdf(z_c)
+            control_auc = float(roc_auc_score(control_membership, score_c))
+            print(f"[sanity control] leave-one-shadow-out AUC (expect >0.5): {control_auc:.4f}")
+            if control_auc < 0.5:
+                print("[sanity control] WARNING: control AUC is below 0.5 -- the "
+                      "scoring pipeline itself looks inverted, independent of GHOST.")
 
     # --- Offline LiRA scoring ---
     mu_out, sigma_out = _shadow_out_stats(shadow_models, shadow_masks,
@@ -237,6 +290,7 @@ def run(args):
         "dataset": args.dataset,
         "protocol": args.protocol,
         "ood_dataset": args.ood_dataset if args.protocol == "OOD" else None,
+        "sanity_control_auc": control_auc,
         "lira_auc": lira_auc,
         "n_members": int(len(y_mem)),
         "n_nonmembers": int(len(y_non)),
@@ -264,6 +318,12 @@ def build_argparser():
     p.add_argument("--n-members", type=int, default=5000)
     p.add_argument("--n-nonmembers", type=int, default=5000)
     p.add_argument("--n-shadows", type=int, default=16)
+    p.add_argument("--shadow-arch-family", choices=["ghost", "baseline"], default="ghost",
+                   help="ghost (default): shadows share the target's permutation/decoy/"
+                        "gate architecture, required for a valid OUT-calibration. "
+                        "baseline: plain classifier shadows (fast, but confounded by "
+                        "architecture-driven confidence differences -- use only as a "
+                        "cheap sanity-check reference, not for the reported number).")
     p.add_argument("--shadow-train-size", type=int, default=10000)
     p.add_argument("--shadow-epochs", type=int, default=50)
     p.add_argument("--seed", type=int, default=0)

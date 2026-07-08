@@ -1,8 +1,8 @@
-[layer 0] HW= 256 | corr acc=0.0000 | sup acc=0.4766 | chance=0.003906
-[layer 1] HW=  64 | corr acc=0.0000 | sup acc=0.5156 | chance=0.01562
-[layer 2] HW=  64 | corr acc=0.0312 | sup acc=0.9844 | chance=0.01562
+[layer 0] HW= 256 | corr acc=0.0000 | sup acc=1.0 | chance=0.003906
+[layer 1] HW=  64 | corr acc=0.0000 | sup acc=0.9844 | chance=0.01562
+[layer 2] HW=  64 | corr acc=0.0312 | sup acc=1.0 | chance=0.01562
 [layer 3] HW=  16 | corr acc=0.0625 | sup acc=1.0 | chance=0.0625
-[layer 4] HW=  16 | corr acc=0.0625 | sup acc=0.9375 | chance=0.0625
+[layer 4] HW=  16 | corr acc=0.0625 | sup acc=1.0 | chance=0.0625
 [layer 5] HW=  16 | corr acc=0.0000 | sup acc=1.0 | chance=0.0625
 [layer 6] HW=   4 | corr acc=0.0000 | sup acc=1.0 | chance=0.25
 [layer 7] HW=   4 | corr acc=0.2500 | sup acc=1.0 | chance=0.25
@@ -16,6 +16,7 @@ Wrote results/adaptive_perm_resnet18_cifar10.json
   "arch": "resnet18",
   "dataset": "cifar10",
   "n_probe": 2000,
-  "mean_position_accuracy_corr": 0.3046875,
-  "mean_position_accuracy_sup": 0.9095052083333334
+  "n_trivial_layers_excluded": 3,
+  "mean_position_accuracy_corr_nontrivial": 0.07291666666666667,
+  "mean_position_accuracy_sup_nontrivial": 0.9982638888888888
 }
