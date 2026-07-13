@@ -1,123 +1,113 @@
 Using device: mps
-Epoch 1/100 | GHOST loss 2.0152 | 21.9s
-Epoch 2/100 | GHOST loss 1.8740 | 40.6s
-Epoch 3/100 | GHOST loss 1.7742 | 43.3s
-Epoch 4/100 | GHOST loss 1.7046 | 43.9s
-Epoch 5/100 | GHOST loss 1.6612 | 44.0s
-Checkpoint saved at epoch 5
-Epoch 6/100 | GHOST loss 1.6192 | 43.3s
-Epoch 7/100 | GHOST loss 1.5944 | 42.9s
-Epoch 8/100 | GHOST loss 1.5668 | 43.4s
-Epoch 9/100 | GHOST loss 1.5456 | 42.9s
-Epoch 10/100 | GHOST loss 1.5305 | 43.1s
+Epoch 1/100 | GHOST loss 1.9449 | 39.0s
+Epoch 2/100 | GHOST loss 1.7100 | 36.7s
+Epoch 3/100 | GHOST loss 1.6080 | 37.5s
+Epoch 4/100 | GHOST loss 1.5101 | 55.9s
+Epoch 5/100 | GHOST loss 1.4467 | 38.2s
+Epoch 6/100 | GHOST loss 1.3808 | 54.5s
+Epoch 7/100 | GHOST loss 1.3422 | 53.9s
+Epoch 8/100 | GHOST loss 1.3092 | 53.7s
+Epoch 9/100 | GHOST loss 1.2731 | 53.9s
+Epoch 10/100 | GHOST loss 1.2545 | 53.3s
 Checkpoint saved at epoch 10
-Epoch 11/100 | GHOST loss 1.5151 | 43.2s
-Epoch 12/100 | GHOST loss 1.4993 | 43.7s
-Epoch 13/100 | GHOST loss 1.4845 | 43.7s
-Epoch 14/100 | GHOST loss 1.4674 | 43.5s
-Epoch 15/100 | GHOST loss 1.4612 | 43.3s
-Checkpoint saved at epoch 15
-Epoch 16/100 | GHOST loss 1.4486 | 42.9s
-Epoch 17/100 | GHOST loss 1.4374 | 43.5s
-Epoch 18/100 | GHOST loss 1.4319 | 45.6s
-Epoch 19/100 | GHOST loss 1.4246 | 44.4s
-Epoch 20/100 | GHOST loss 1.4079 | 44.2s
+Epoch 11/100 | GHOST loss 1.2193 | 36.7s
+Epoch 12/100 | GHOST loss 1.1964 | 52.2s
+Epoch 13/100 | GHOST loss 1.1706 | 51.7s
+Epoch 14/100 | GHOST loss 1.1610 | 50.6s
+Epoch 15/100 | GHOST loss 1.1477 | 51.8s
+Epoch 16/100 | GHOST loss 1.1317 | 40.4s
+Epoch 17/100 | GHOST loss 1.1106 | 42.7s
+Epoch 18/100 | GHOST loss 1.1046 | 49.3s
+Epoch 19/100 | GHOST loss 1.0855 | 51.4s
+Epoch 20/100 | GHOST loss 1.0781 | 51.8s
 Checkpoint saved at epoch 20
-Epoch 21/100 | GHOST loss 1.3999 | 44.1s
-Epoch 22/100 | GHOST loss 1.3915 | 44.1s
-Epoch 23/100 | GHOST loss 1.3817 | 44.3s
-Epoch 24/100 | GHOST loss 1.3737 | 45.0s
-Epoch 25/100 | GHOST loss 1.3667 | 45.0s
-Checkpoint saved at epoch 25
-Epoch 26/100 | GHOST loss 1.3595 | 44.0s
-Epoch 27/100 | GHOST loss 1.3530 | 44.5s
-Epoch 28/100 | GHOST loss 1.3461 | 43.9s
-Epoch 29/100 | GHOST loss 1.3408 | 44.7s
-Epoch 30/100 | GHOST loss 1.3298 | 44.6s
+Epoch 21/100 | GHOST loss 1.0589 | 52.1s
+Epoch 22/100 | GHOST loss 1.0498 | 54.5s
+Epoch 23/100 | GHOST loss 1.0400 | 56.2s
+Epoch 24/100 | GHOST loss 1.0263 | 58.0s
+Epoch 25/100 | GHOST loss 1.0174 | 53.4s
+Epoch 26/100 | GHOST loss 1.0103 | 51.7s
+Epoch 27/100 | GHOST loss 0.9966 | 51.0s
+Epoch 28/100 | GHOST loss 0.9969 | 43.9s
+Epoch 29/100 | GHOST loss 0.9809 | 41.5s
+Epoch 30/100 | GHOST loss 0.9654 | 54.4s
 Checkpoint saved at epoch 30
-Epoch 31/100 | GHOST loss 1.3286 | 44.5s
-Epoch 32/100 | GHOST loss 1.3175 | 44.3s
-Epoch 33/100 | GHOST loss 1.3085 | 44.2s
-Epoch 34/100 | GHOST loss 1.3048 | 43.8s
-Epoch 35/100 | GHOST loss 1.2943 | 43.7s
-Checkpoint saved at epoch 35
-Epoch 36/100 | GHOST loss 1.2906 | 44.6s
-Epoch 37/100 | GHOST loss 1.2846 | 44.4s
-Epoch 38/100 | GHOST loss 1.2760 | 44.4s
-Epoch 39/100 | GHOST loss 1.2703 | 45.4s
-Epoch 40/100 | GHOST loss 1.2656 | 47.9s
+Epoch 31/100 | GHOST loss 0.9610 | 53.7s
+Epoch 32/100 | GHOST loss 0.9555 | 53.0s
+Epoch 33/100 | GHOST loss 0.9486 | 53.3s
+Epoch 34/100 | GHOST loss 0.9414 | 54.4s
+Epoch 35/100 | GHOST loss 0.9277 | 54.1s
+Epoch 36/100 | GHOST loss 0.9223 | 54.7s
+Epoch 37/100 | GHOST loss 0.9121 | 53.6s
+Epoch 38/100 | GHOST loss 0.9335 | 48.8s
+Epoch 39/100 | GHOST loss 0.9064 | 35.4s
+Epoch 40/100 | GHOST loss 0.8985 | 35.5s
 Checkpoint saved at epoch 40
-Epoch 41/100 | GHOST loss 1.2630 | 47.7s
-Epoch 42/100 | GHOST loss 1.2500 | 47.2s
-Epoch 43/100 | GHOST loss 1.2494 | 48.2s
-Epoch 44/100 | GHOST loss 1.2439 | 48.4s
-Epoch 45/100 | GHOST loss 1.2380 | 47.8s
-Checkpoint saved at epoch 45
-Epoch 46/100 | GHOST loss 1.2292 | 47.9s
-Epoch 47/100 | GHOST loss 1.2190 | 48.0s
-Epoch 48/100 | GHOST loss 1.2160 | 47.8s
-Epoch 49/100 | GHOST loss 1.2082 | 48.1s
-Epoch 50/100 | GHOST loss 1.2002 | 47.2s
+Epoch 41/100 | GHOST loss 0.8870 | 36.0s
+Epoch 42/100 | GHOST loss 0.8746 | 35.3s
+Epoch 43/100 | GHOST loss 0.8788 | 39.9s
+Epoch 44/100 | GHOST loss 0.8693 | 53.6s
+Epoch 45/100 | GHOST loss 0.8657 | 53.7s
+Epoch 46/100 | GHOST loss 0.8584 | 54.7s
+Epoch 47/100 | GHOST loss 0.8525 | 54.1s
+Epoch 48/100 | GHOST loss 0.8439 | 55.2s
+Epoch 49/100 | GHOST loss 0.8342 | 52.2s
+Epoch 50/100 | GHOST loss 0.8295 | 53.7s
 Checkpoint saved at epoch 50
-Epoch 51/100 | GHOST loss 1.2015 | 46.0s
-Epoch 52/100 | GHOST loss 1.1853 | 47.8s
-Epoch 53/100 | GHOST loss 1.1792 | 45.5s
-Epoch 54/100 | GHOST loss 1.1797 | 46.6s
-Epoch 55/100 | GHOST loss 1.1738 | 47.9s
-Checkpoint saved at epoch 55
-Epoch 56/100 | GHOST loss 1.1639 | 49.2s
-Epoch 57/100 | GHOST loss 1.1565 | 48.2s
-Epoch 58/100 | GHOST loss 1.1525 | 31.7s
-Epoch 59/100 | GHOST loss 1.1463 | 47.2s
-Epoch 60/100 | GHOST loss 1.1407 | 48.0s
+Epoch 51/100 | GHOST loss 0.8263 | 54.0s
+Epoch 52/100 | GHOST loss 0.8173 | 53.5s
+Epoch 53/100 | GHOST loss 0.8165 | 41.3s
+Epoch 54/100 | GHOST loss 0.8099 | 35.2s
+Epoch 55/100 | GHOST loss 0.8054 | 44.6s
+Epoch 56/100 | GHOST loss 0.8015 | 51.3s
+Epoch 57/100 | GHOST loss 0.7890 | 50.0s
+Epoch 58/100 | GHOST loss 0.7862 | 50.8s
+Epoch 59/100 | GHOST loss 0.7799 | 51.1s
+Epoch 60/100 | GHOST loss 0.7743 | 50.8s
 Checkpoint saved at epoch 60
-Epoch 61/100 | GHOST loss 1.1296 | 48.0s
-Epoch 62/100 | GHOST loss 1.1243 | 50.3s
-Epoch 63/100 | GHOST loss 1.1201 | 50.5s
-Epoch 64/100 | GHOST loss 1.1142 | 49.5s
-Epoch 65/100 | GHOST loss 1.1088 | 51.4s
-Checkpoint saved at epoch 65
-Epoch 66/100 | GHOST loss 1.1037 | 51.2s
-Epoch 67/100 | GHOST loss 1.0959 | 49.8s
-Epoch 68/100 | GHOST loss 1.0879 | 47.2s
-Epoch 69/100 | GHOST loss 1.0813 | 47.2s
-Epoch 70/100 | GHOST loss 1.0779 | 47.6s
+Epoch 61/100 | GHOST loss 0.7713 | 37.2s
+Epoch 62/100 | GHOST loss 0.7628 | 51.1s
+Epoch 63/100 | GHOST loss 0.7635 | 1177.1s
+Epoch 64/100 | GHOST loss 0.7562 | 539.7s
+Epoch 65/100 | GHOST loss 0.7534 | 2499.2s
+Epoch 66/100 | GHOST loss 0.7487 | 34.8s
+Epoch 67/100 | GHOST loss 0.7438 | 34.9s
+Epoch 68/100 | GHOST loss 0.7381 | 34.3s
+Epoch 69/100 | GHOST loss 0.7271 | 34.6s
+Epoch 70/100 | GHOST loss 0.7337 | 34.7s
 Checkpoint saved at epoch 70
-Epoch 71/100 | GHOST loss 1.0703 | 47.9s
-Epoch 72/100 | GHOST loss 1.0644 | 47.1s
-Epoch 73/100 | GHOST loss 1.0553 | 47.2s
-Epoch 74/100 | GHOST loss 1.0481 | 47.2s
-Epoch 75/100 | GHOST loss 1.0444 | 46.1s
-Checkpoint saved at epoch 75
-Epoch 76/100 | GHOST loss 1.0361 | 47.3s
-Epoch 77/100 | GHOST loss 1.0348 | 46.1s
-Epoch 78/100 | GHOST loss 1.0305 | 45.0s
-Epoch 79/100 | GHOST loss 1.0207 | 44.9s
-Epoch 80/100 | GHOST loss 1.0203 | 46.3s
+Epoch 71/100 | GHOST loss 0.7275 | 35.0s
+Epoch 72/100 | GHOST loss 0.7194 | 34.3s
+Epoch 73/100 | GHOST loss 0.7182 | 34.5s
+Epoch 74/100 | GHOST loss 0.7172 | 34.6s
+Epoch 75/100 | GHOST loss 0.7089 | 34.7s
+Epoch 76/100 | GHOST loss 0.7109 | 34.7s
+Epoch 77/100 | GHOST loss 0.7026 | 45.5s
+Epoch 78/100 | GHOST loss 0.6996 | 51.6s
+Epoch 79/100 | GHOST loss 0.6944 | 49.7s
+Epoch 80/100 | GHOST loss 0.6936 | 49.3s
 Checkpoint saved at epoch 80
-Epoch 81/100 | GHOST loss 1.0112 | 45.1s
-Epoch 82/100 | GHOST loss 1.0094 | 46.3s
-Epoch 83/100 | GHOST loss 1.0063 | 46.4s
-Epoch 84/100 | GHOST loss 0.9987 | 46.5s
-Epoch 85/100 | GHOST loss 0.9950 | 46.3s
-Checkpoint saved at epoch 85
-Epoch 86/100 | GHOST loss 0.9918 | 46.5s
-Epoch 87/100 | GHOST loss 0.9899 | 46.4s
-Epoch 88/100 | GHOST loss 0.9845 | 46.4s
-Epoch 89/100 | GHOST loss 0.9851 | 46.6s
-Epoch 90/100 | GHOST loss 0.9817 | 46.1s
+Epoch 81/100 | GHOST loss 0.6896 | 37.3s
+Epoch 82/100 | GHOST loss 0.6879 | 42.0s
+Epoch 83/100 | GHOST loss 0.6819 | 74.3s
+Epoch 84/100 | GHOST loss 0.6827 | 2577.4s
+Epoch 85/100 | GHOST loss 0.6788 | 77.5s
+Epoch 86/100 | GHOST loss 0.6823 | 83.9s
+Epoch 87/100 | GHOST loss 0.6768 | 97.0s
+Epoch 88/100 | GHOST loss 0.6763 | 75.9s
+Epoch 89/100 | GHOST loss 0.6742 | 33.9s
+Epoch 90/100 | GHOST loss 0.6765 | 34.8s
 Checkpoint saved at epoch 90
-Epoch 91/100 | GHOST loss 0.9765 | 46.5s
-Epoch 92/100 | GHOST loss 0.9725 | 46.4s
-Epoch 93/100 | GHOST loss 0.9767 | 46.2s
-Epoch 94/100 | GHOST loss 0.9765 | 45.6s
-Epoch 95/100 | GHOST loss 0.9705 | 46.1s
-Checkpoint saved at epoch 95
-Epoch 96/100 | GHOST loss 0.9713 | 46.4s
-Epoch 97/100 | GHOST loss 0.9690 | 46.2s
-Epoch 98/100 | GHOST loss 0.9737 | 44.9s
-Epoch 99/100 | GHOST loss 0.9695 | 46.5s
-Epoch 100/100 | GHOST loss 0.9669 | 45.2s
+Epoch 91/100 | GHOST loss 0.6703 | 46.4s
+Epoch 92/100 | GHOST loss 0.6719 | 54.5s
+Epoch 93/100 | GHOST loss 0.6692 | 55.5s
+Epoch 94/100 | GHOST loss 0.6715 | 52.3s
+Epoch 95/100 | GHOST loss 0.6652 | 52.5s
+Epoch 96/100 | GHOST loss 0.6643 | 54.3s
+Epoch 97/100 | GHOST loss 0.6680 | 53.0s
+Epoch 98/100 | GHOST loss 0.6651 | 52.8s
+Epoch 99/100 | GHOST loss 0.6663 | 54.0s
+Epoch 100/100 | GHOST loss 0.6666 | 54.7s
 Checkpoint saved at epoch 100
-GHOST_resnet18 test accuracy: 57.45%
+GHOST_resnet18 test accuracy: 71.86%
 Saved checkpoints/ghost_resnet18_cifar10.pt

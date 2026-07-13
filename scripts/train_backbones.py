@@ -32,7 +32,7 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 from configs.default_config import CONFIG
-from src.ghost.utils import get_mapping
+from src.ghost.utils import get_mapping, shuffle_image
 from src.ghost.models import (
     GHOST_ResNet18, GHOST_ResNet50, GHOST_MobileNetV3,
     BaselineResNet18, BaselineResNet50, BaselineMobileNetV3,
@@ -45,17 +45,24 @@ _BASE = {"resnet18": BaselineResNet18, "resnet50": BaselineResNet50, "mobilenetv
 NUM_DECOYS = 8  # N=8 decoys for backbone models (Section IV-E)
 
 
-def _tf(augment):
+def _tf(augment, mapping):
+    # NOTE: this shuffles input for the shared loader used by both GHOST (whose
+    # first op is Unshuffle(mapping), expecting shuffled input) and, if
+    # --train-baseline is passed, BaselineResNet18 (which has no Unshuffle and
+    # expects plain images). --train-baseline is off by default and unused by
+    # this repo's actual runs; fixing that combination is left for whenever
+    # that path is actually needed.
     ops = [transforms.Resize((32, 32))]
     if augment:
         ops += [transforms.RandomHorizontalFlip(), transforms.RandomCrop(32, padding=4)]
-    ops += [transforms.ToTensor(), transforms.Normalize((0.5,) * 3, (0.5,) * 3)]
+    ops += [transforms.ToTensor(), transforms.Lambda(lambda x: shuffle_image(x, mapping)),
+            transforms.Normalize((0.5,) * 3, (0.5,) * 3)]
     return transforms.Compose(ops)
 
 
-def build_loaders(dataset, data_root, batch_size, num_workers=0):
-    train_ds = HFImageDataset(dataset, data_root, train=True, transform=_tf(augment=True))
-    test_ds = HFImageDataset(dataset, data_root, train=False, transform=_tf(augment=False))
+def build_loaders(dataset, data_root, batch_size, mapping, num_workers=0):
+    train_ds = HFImageDataset(dataset, data_root, train=True, transform=_tf(augment=True, mapping=mapping))
+    test_ds = HFImageDataset(dataset, data_root, train=False, transform=_tf(augment=False, mapping=mapping))
     train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
     test_loader = DataLoader(test_ds, batch_size=batch_size, shuffle=False, num_workers=num_workers)
     return train_loader, test_loader
@@ -111,7 +118,7 @@ def main():
         with open(args.token_file, "w") as f:
             json.dump({"token_hex": token_hex, "token_hash": token_hash}, f)
 
-    train_loader, test_loader = build_loaders(args.dataset, args.data_root, args.batch_size)
+    train_loader, test_loader = build_loaders(args.dataset, args.data_root, args.batch_size, mapping)
 
     ghost = _GHOST[args.arch](mapping, num_classes=args.num_classes,
                                num_decoys=NUM_DECOYS, token_hash=token_hash).to(device)

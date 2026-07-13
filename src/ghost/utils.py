@@ -15,6 +15,15 @@ def get_mapping(path, size=32):
         mapping = json.load(f)
     return mapping
 
+def shuffle_image(img, mapping):
+    """Forward pixel shuffle applied to inputs before they reach a GHOST_*
+    model. GHOST_* models' first op is Unshuffle(mapping), which expects data
+    already shuffled this way and reverses it internally -- feeding it
+    unshuffled data scrambles every pixel instead of leaving it untouched."""
+    c, h, w = img.shape
+    flat = img.view(c, -1)
+    return flat[:, mapping].view(c, h, w)
+
 class Unshuffle(nn.Module):
     def __init__(self, mapping):
         super().__init__()

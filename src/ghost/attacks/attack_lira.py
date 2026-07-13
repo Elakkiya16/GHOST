@@ -64,7 +64,7 @@ from sklearn.metrics import roc_auc_score
 from torch.utils.data import DataLoader, Subset, ConcatDataset
 from torchvision import datasets, transforms
 
-from src.ghost.utils import get_mapping
+from src.ghost.utils import get_mapping, shuffle_image
 from src.ghost.models import (
     GHOST_ResNet18, GHOST_ResNet50, GHOST_MobileNetV3,
     BaselineResNet18, BaselineResNet50, BaselineMobileNetV3,
@@ -77,16 +77,21 @@ _BASE = {"resnet18": BaselineResNet18, "resnet50": BaselineResNet50,
          "mobilenetv3": BaselineMobileNetV3}
 
 
-def _tf():
+def _tf(mapping):
+    # Both the target and (with --shadow-arch-family ghost) the shadows are
+    # GHOST_* models, whose first op is Unshuffle(mapping): it expects input
+    # already pixel-shuffled and reverses it internally. Without this, every
+    # image is scrambled instead of recovered before it reaches conv1.
     return transforms.Compose([
         transforms.Resize((32, 32)),
         transforms.ToTensor(),
+        transforms.Lambda(lambda x: shuffle_image(x, mapping)),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
     ])
 
 
-def _load_dataset(name, root, train):
-    tf = _tf()
+def _load_dataset(name, root, train, mapping):
+    tf = _tf(mapping)
     if name in ("cifar10", "cifar100"):
         return HFImageDataset(name, root, train=train, transform=tf)
     if name == "svhn":
@@ -179,13 +184,13 @@ def run(args):
     target.eval()
 
     # --- Member / non-member evaluation sets (match paper protocol) ---
-    train_ds = _load_dataset(args.dataset, args.data_root, train=True)
+    train_ds = _load_dataset(args.dataset, args.data_root, train=True, mapping=mapping)
     members = Subset(train_ds, list(range(args.n_members)))
 
     if args.protocol == "OOD":
-        nonmem_ds = _load_dataset(args.ood_dataset, args.data_root, train=False)
+        nonmem_ds = _load_dataset(args.ood_dataset, args.data_root, train=False, mapping=mapping)
     else:  # SD: held-out test split of the same distribution
-        nonmem_ds = _load_dataset(args.dataset, args.data_root, train=False)
+        nonmem_ds = _load_dataset(args.dataset, args.data_root, train=False, mapping=mapping)
     nonmembers = Subset(nonmem_ds, list(range(args.n_nonmembers)))
 
     def _stack(subset):
@@ -213,7 +218,7 @@ def run(args):
     # --- Shadow pool + OUT masks ---
     # Shadows trained on random halves of a shadow pool drawn from the SAME
     # distribution as members, using the SAME architecture family and preprocessing.
-    shadow_pool = _load_dataset(args.dataset, args.data_root, train=True)
+    shadow_pool = _load_dataset(args.dataset, args.data_root, train=True, mapping=mapping)
     pool_idx = np.arange(len(y_all))  # index space aligned to x_all order
     shadow_models, shadow_masks = [], []
     rng = np.random.default_rng(args.seed)

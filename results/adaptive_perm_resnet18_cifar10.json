@@ -4,20 +4,20 @@
   "n_probe": 2000,
   "n_trivial_layers_excluded": 3,
   "mean_position_accuracy_corr_nontrivial": 0.07291666666666667,
-  "mean_position_accuracy_sup_nontrivial": 0.9982638888888888,
+  "mean_position_accuracy_sup_nontrivial": 0.8962673611111112,
   "per_layer": [
     {
       "layer_index": 0,
       "hw": 256,
       "position_accuracy_corr": 0.0,
-      "position_accuracy_sup": 1.0,
+      "position_accuracy_sup": 0.06640625,
       "random_baseline": 0.00390625
     },
     {
       "layer_index": 1,
       "hw": 64,
       "position_accuracy_corr": 0.0,
-      "position_accuracy_sup": 0.984375,
+      "position_accuracy_sup": 1.0,
       "random_baseline": 0.015625
     },
     {

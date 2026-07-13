@@ -68,7 +68,7 @@ try:
 except Exception:
     _HAS_SCIPY = False
 
-from src.ghost.utils import SpatialPerm, get_mapping
+from src.ghost.utils import SpatialPerm, get_mapping, shuffle_image
 from src.ghost.models import (
     GHOST_ResNet18, GHOST_ResNet50, GHOST_MobileNetV3,
 )
@@ -81,10 +81,15 @@ _ARCHES = {
 }
 
 
-def _build_loader(dataset, root, n_probe, batch_size=128):
+def _build_loader(dataset, root, n_probe, mapping, batch_size=128):
+    # The model's first op is Unshuffle(mapping) (Section III-B): it expects
+    # input already pixel-shuffled and reverses it internally. Probe images
+    # must be shuffled the same way, or every image is scrambled instead of
+    # recovered before it ever reaches conv1.
     tf = transforms.Compose([
         transforms.Resize((32, 32)),
         transforms.ToTensor(),
+        transforms.Lambda(lambda x: shuffle_image(x, mapping)),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
     ])
     if dataset in ("cifar10", "cifar100"):
@@ -246,7 +251,7 @@ def run(args):
     model._probe_token = args.token_hex
     model.eval()
 
-    probe = _build_loader(args.dataset, args.data_root, args.n_probe)
+    probe = _build_loader(args.dataset, args.data_root, args.n_probe, mapping)
 
     # Evaluate a representative subset of the L permutation modules.
     perm_modules = list(model.spatial_perms)
