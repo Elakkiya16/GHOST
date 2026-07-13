@@ -1,6 +1,6 @@
 # GHOST: Guarded Hybrid Obfuscation with Split Token Execution for Secure Edge Inference
 
-This repository is organized for clean, reviewer-facing execution and reproduction.
+This repository is organized for clean, reviewer-facing execution and reproduction of the results reported in the paper.
 
 ## Repository structure
 
