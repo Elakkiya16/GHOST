@@ -1,0 +1,19 @@
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}llcc@{}}
+\toprule
+Starting point & Ref. & Weight err. & Acc.\ (\%) \\
+\midrule
+Checkpoint, fine-tuned & ckpt. & -- & 86.6 \\
+Plaintext edge weights & -- & -- & 86.4 \\
+\midrule
+GHOST tensors, direct & -- & 1.930 & 83.9 \\
+GHOST, direction matching & ckpt. & 1.145 & 85.7 \\
+GHOST, LS un-mixing & ckpt. & 2.789 & 86.1 \\
+GHOST, projection, $B$ given & ckpt. & 0.041 & 86.8 \\
+\midrule
+P\&S ablation, direction matching & ckpt. & 0.029 & 86.7 \\
+Left-only ablation, projection & ckpt. & 0.041 & 86.4 \\
+\bottomrule
+\multicolumn{4}{@{}l@{}}{\footnotesize Weight error of the reference model alone: 0.062.}
+\end{tabular}

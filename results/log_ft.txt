@@ -1,0 +1,4 @@
++ out=victimft_resnet20.json
++ shift
++ '[' -f results/victimft_resnet20.json ']'
++ return 0

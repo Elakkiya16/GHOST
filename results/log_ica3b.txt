@@ -1,0 +1,14 @@
+{'arch': 'resnet20', 'layer': 'blocks.1.conv2', 'c_in': 16, 'rho': 1, 'repeats': 1, 'n_inputs': 2000, 'queries': 2000, 'alignment': 0.9500288963317871, 'err_reference': 0.06483859568834305, 'err_projection_estimated_B': 0.6507251858711243, 'err_projection_estimated_B_refscaled': 0.32898178696632385, 'err_projection_true_B': 0.0383237861096859}
+/usr/local/lib/python3.13/dist-packages/sklearn/decomposition/_fastica.py:132: ConvergenceWarning: FastICA did not converge. Consider increasing tolerance or the maximum number of iterations.
+  warnings.warn(
+{'arch': 'resnet20', 'layer': 'blocks.1.conv2', 'c_in': 16, 'rho': 10, 'repeats': 1, 'n_inputs': 2000, 'queries': 2000, 'alignment': 0.5117373466491699, 'err_reference': 0.06483859568834305, 'err_projection_estimated_B': 0.8052725791931152, 'err_projection_estimated_B_refscaled': 0.7932053208351135, 'err_projection_true_B': 0.0383237861096859}
+/usr/local/lib/python3.13/dist-packages/sklearn/decomposition/_fastica.py:132: ConvergenceWarning: FastICA did not converge. Consider increasing tolerance or the maximum number of iterations.
+  warnings.warn(
+{'arch': 'resnet20', 'layer': 'blocks.1.conv2', 'c_in': 16, 'rho': 10, 'repeats': 10, 'n_inputs': 200, 'queries': 2000, 'alignment': 0.5848071575164795, 'err_reference': 0.06483859568834305, 'err_projection_estimated_B': 0.840614378452301, 'err_projection_estimated_B_refscaled': 0.7212592363357544, 'err_projection_true_B': 0.0383237861096859}
+{'arch': 'resnet20', 'layer': 'blocks.1.conv2', 'c_in': 16, 'rho': 10, 'repeats': 100, 'n_inputs': 20, 'queries': 2000, 'alignment': 0.9113689661026001, 'err_reference': 0.06483859568834305, 'err_projection_estimated_B': 0.74759441614151, 'err_projection_estimated_B_refscaled': 0.3998251259326935, 'err_projection_true_B': 0.0383237861096859}
+/usr/local/lib/python3.13/dist-packages/sklearn/decomposition/_fastica.py:132: ConvergenceWarning: FastICA did not converge. Consider increasing tolerance or the maximum number of iterations.
+  warnings.warn(
+{'arch': 'resnet20', 'layer': 'blocks.1.conv2', 'c_in': 16, 'rho': 100, 'repeats': 10, 'n_inputs': 200, 'queries': 2000, 'alignment': 0.5244736075401306, 'err_reference': 0.06483859568834305, 'err_projection_estimated_B': 0.8342556357383728, 'err_projection_estimated_B_refscaled': 0.835375189781189, 'err_projection_true_B': 0.0383237861096859}
+/usr/local/lib/python3.13/dist-packages/sklearn/decomposition/_fastica.py:132: ConvergenceWarning: FastICA did not converge. Consider increasing tolerance or the maximum number of iterations.
+  warnings.warn(
+{'arch': 'resnet20', 'layer': 'blocks.1.conv2', 'c_in': 16, 'rho': 100, 'repeats': 100, 'n_inputs': 20, 'queries': 2000, 'alignment': 0.49960318207740784, 'err_reference': 0.06483859568834305, 'err_projection_estimated_B': 0.8182196617126465, 'err_projection_estimated_B_refscaled': 0.7871015667915344, 'err_projection_true_B': 0.0383237861096859}

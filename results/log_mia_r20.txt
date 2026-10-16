@@ -1,0 +1,4 @@
++ out=mia_resnet20.json
++ shift
++ '[' -f results/mia_resnet20.json ']'
++ return 0

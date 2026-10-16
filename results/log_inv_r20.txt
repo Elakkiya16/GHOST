@@ -1,0 +1,4 @@
++ out=inversion_resnet20.json
++ shift
++ '[' -f results/inversion_resnet20.json ']'
++ return 0

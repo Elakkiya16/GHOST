@@ -1,0 +1,4 @@
++ out=blind_icapub_resnet20_L0.json
++ shift
++ '[' -f results/blind_icapub_resnet20_L0.json ']'
++ return 0

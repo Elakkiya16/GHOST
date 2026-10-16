@@ -1,0 +1,15 @@
+{
+ "arch": "vgg11h",
+ "n": 5000,
+ "cond": "plain",
+ "steps": 1000,
+ "acc_init": 10.000000149011612,
+ "acc": 80.03000020980835,
+ "fidelity": 81.84000253677368,
+ "secs": 327.7187523841858,
+ "victim": "vgg11h_victim_s0",
+ "oracle_ref": "vgg11h_victim_s1",
+ "base": "random",
+ "w_rel_err": null,
+ "ref_rel_err": null
+}

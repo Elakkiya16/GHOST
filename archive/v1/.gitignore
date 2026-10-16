@@ -1,0 +1,85 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# ML / model artifacts
+*.pth
+*.pt
+!checkpoints/ghost_resnet18_cifar10.pt
+*.ckpt
+*.pkl
+*.h5
+*.hdf5
+*.safetensors
+*.onnx
+
+# Data
+data/
+!data/.gitkeep
+*.tar.gz
+*.zip
+*.csv
+*.parquet
+*.npy
+*.npz
+
+# Outputs & logs
+outputs/
+!outputs/.gitkeep
+logs/*
+runs/
+wandb/
+mlruns/
+*.log
+!logs/.gitkeep
+!logs/train_backbones.log
+!logs/attack_adaptive_perm.log
+# attack_lira.log intentionally NOT allow-listed: LiRA calibration against
+# GHOST is unresolved (see results/LIRA_STATUS.md) -- no run log is "the"
+# result, so none should sit in the repo looking like one.
+
+# Secrets & config overrides
+*.json
+!shuffle_map.json
+!results/*.json
+# LiRA result intentionally excluded: calibration against GHOST is unresolved
+# after multiple fix attempts (see results/LIRA_STATUS.md) -- no run so far
+# produces a trustworthy number, so none should be committed as if it were one.
+results/lira_resnet18_cifar10_ood.json
+.env
+.env.*
+secrets/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test images / temp files
+test.jpg
+test.png
+*.tmp
+*.pdf

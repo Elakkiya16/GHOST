@@ -1,0 +1,4 @@
++ out=token_tests.json
++ shift
++ '[' -f results/token_tests.json ']'
++ return 0

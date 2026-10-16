@@ -1,0 +1,32 @@
+[
+ {
+  "arch": "resnet20",
+  "split": 1,
+  "M_orig_total": 40.812544,
+  "M_orig_edge": 4.718592,
+  "M_tee_first": 0.442368,
+  "M_tee_online": 1.179648,
+  "M_tee_offline": 5.89824,
+  "M_ree": 5.89824
+ },
+ {
+  "arch": "resnet20",
+  "split": 3,
+  "M_orig_total": 40.812544,
+  "M_orig_edge": 14.155776,
+  "M_tee_first": 0.442368,
+  "M_tee_online": 3.538944,
+  "M_tee_offline": 17.69472,
+  "M_ree": 17.69472
+ },
+ {
+  "arch": "resnet20",
+  "split": 6,
+  "M_orig_total": 40.812544,
+  "M_orig_edge": 27.262976,
+  "M_tee_first": 0.442368,
+  "M_tee_online": 7.667712,
+  "M_tee_offline": 34.07872,
+  "M_ree": 34.07872
+ }
+]

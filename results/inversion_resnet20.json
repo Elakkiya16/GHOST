@@ -1,0 +1,106 @@
+[
+ {
+  "arch": "resnet20",
+  "rho": 0,
+  "layer": "blocks.0.conv1",
+  "depth": 1,
+  "shape": [
+   16,
+   32,
+   32
+  ],
+  "psnr": 37.17922592163086,
+  "ssim": 0.9906964302062988
+ },
+ {
+  "arch": "resnet20",
+  "rho": 0,
+  "layer": "blocks.2.conv2",
+  "depth": 6,
+  "shape": [
+   16,
+   32,
+   32
+  ],
+  "psnr": 21.002370834350586,
+  "ssim": 0.790678083896637
+ },
+ {
+  "arch": "resnet20",
+  "rho": 1,
+  "layer": "blocks.0.conv1",
+  "depth": 1,
+  "shape": [
+   16,
+   32,
+   32
+  ],
+  "psnr": 24.575284957885742,
+  "ssim": 0.8386500477790833
+ },
+ {
+  "arch": "resnet20",
+  "rho": 1,
+  "layer": "blocks.2.conv2",
+  "depth": 6,
+  "shape": [
+   16,
+   32,
+   32
+  ],
+  "psnr": 16.87496566772461,
+  "ssim": 0.6550071239471436
+ },
+ {
+  "arch": "resnet20",
+  "rho": 10,
+  "layer": "blocks.0.conv1",
+  "depth": 1,
+  "shape": [
+   16,
+   32,
+   32
+  ],
+  "psnr": 13.363845825195312,
+  "ssim": 0.20008665323257446
+ },
+ {
+  "arch": "resnet20",
+  "rho": 10,
+  "layer": "blocks.2.conv2",
+  "depth": 6,
+  "shape": [
+   16,
+   32,
+   32
+  ],
+  "psnr": 12.75992202758789,
+  "ssim": 0.16948243975639343
+ },
+ {
+  "arch": "resnet20",
+  "rho": 100,
+  "layer": "blocks.0.conv1",
+  "depth": 1,
+  "shape": [
+   16,
+   32,
+   32
+  ],
+  "psnr": 12.622066497802734,
+  "ssim": 0.12325466424226761
+ },
+ {
+  "arch": "resnet20",
+  "rho": 100,
+  "layer": "blocks.2.conv2",
+  "depth": 6,
+  "shape": [
+   16,
+   32,
+   32
+  ],
+  "psnr": 12.628795623779297,
+  "ssim": 0.1213601678609848
+ }
+]

@@ -1,0 +1,15 @@
+{
+ "arch": "resnet20",
+ "n": 5000,
+ "cond": "ps_arrow_oracle",
+ "steps": 1000,
+ "acc_init": 31.069999933242798,
+ "acc": 86.69000267982483,
+ "fidelity": 89.27000164985657,
+ "secs": 450.30780482292175,
+ "victim": "resnet20_victimft",
+ "oracle_ref": "resnet20_victim_s1",
+ "base": "ref",
+ "w_rel_err": 0.029461353706816833,
+ "ref_rel_err": 0.061551100884874664
+}

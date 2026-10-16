@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+\begin{axis}[width=\columnwidth, height=0.62\columnwidth, xmode=log, xtick={1000,5000,10000},
+  xticklabels={1k,5k,10k}, xlabel={Authorised queries $Q$}, ylabel={Surrogate accuracy (\%)},
+  legend style={font=\scriptsize, at={(0.5,-0.32)}, anchor=north, draw=navy, legend columns=2},
+  tick label style={font=\scriptsize}, label style={font=\footnotesize}, axis line style={navy},
+  ymajorgrids, grid style={navy!25}, xmin=800, xmax=12000]
+\addplot[navy, mark=*, line width=1pt] coordinates {(1000,60.35) (5000,72.21) (10000,75.65)};
+\addlegendentry{Probability vector}
+\addplot[alert, mark=square*, line width=1pt] coordinates {(1000,57.04) (5000,70.54) (10000,74.18)};
+\addlegendentry{Label only}
+\addplot[gold!90!black, dashed, line width=1pt, domain=800:12000, samples=2] {89.94};
+\addlegendentry{Victim}
+\end{axis}
+\end{tikzpicture}

@@ -1,0 +1,6 @@
+{
+ "arch": "resnet20",
+ "epochs": 30,
+ "seed": 1,
+ "test_acc": 90.61999917030334
+}

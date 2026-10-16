@@ -1,0 +1,219 @@
++ out=steal_resnet20_n5000_scratch.json
++ shift
++ '[' -f results/steal_resnet20_n5000_scratch.json ']'
++ python3 steal.py resnet20 5000 scratch
+{'arch': 'resnet20', 'n': 5000, 'cond': 'scratch', 'steps': 1000, 'acc_init': 9.809999912977219, 'acc': 70.13000249862671, 'fidelity': 71.70000076293945, 'secs': 504.34923815727234}
++ out=steal_resnet20_n5000_plain.json
++ shift
++ '[' -f results/steal_resnet20_n5000_plain.json ']'
++ python3 steal.py resnet20 5000 plain
+{'arch': 'resnet20', 'n': 5000, 'cond': 'plain', 'steps': 1000, 'acc_init': 9.26000028848648, 'acc': 75.48999786376953, 'fidelity': 77.82999873161316, 'secs': 497.986989736557}
++ out=steal_resnet20_n5000_ghost.json
++ shift
++ '[' -f results/steal_resnet20_n5000_ghost.json ']'
++ python3 steal.py resnet20 5000 ghost
+{'arch': 'resnet20', 'n': 5000, 'cond': 'ghost', 'steps': 1000, 'acc_init': 10.249999910593033, 'acc': 69.59999799728394, 'fidelity': 71.52000069618225, 'secs': 482.0160598754883}
++ out=steal_resnet20_n5000_arrow_own.json
++ shift
++ '[' -f results/steal_resnet20_n5000_arrow_own.json ']'
++ python3 steal.py resnet20 5000 arrow_own
+{'arch': 'resnet20', 'n': 5000, 'cond': 'arrow_own', 'steps': 1000, 'acc_init': 9.97999981045723, 'acc': 70.8299994468689, 'fidelity': 72.57999777793884, 'secs': 505.05208230018616}
++ out=steal_resnet20_n5000_unmix_own.json
++ shift
++ '[' -f results/steal_resnet20_n5000_unmix_own.json ']'
++ python3 steal.py resnet20 5000 unmix_own
+{'arch': 'resnet20', 'n': 5000, 'cond': 'unmix_own', 'steps': 1000, 'acc_init': 8.079999685287476, 'acc': 66.0099983215332, 'fidelity': 67.69000291824341, 'secs': 515.750571012497}
++ out=steal_resnet20_n5000_arrow_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_arrow_oracle.json ']'
++ python3 steal.py resnet20 5000 arrow_oracle
+{'arch': 'resnet20', 'n': 5000, 'cond': 'arrow_oracle', 'steps': 1000, 'acc_init': 9.239999949932098, 'acc': 72.17000126838684, 'fidelity': 74.19000267982483, 'secs': 504.0075173377991}
++ out=steal_resnet20_n5000_unmix_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_unmix_oracle.json ']'
++ python3 steal.py resnet20 5000 unmix_oracle
+{'arch': 'resnet20', 'n': 5000, 'cond': 'unmix_oracle', 'steps': 1000, 'acc_init': 10.000000149011612, 'acc': 70.27999758720398, 'fidelity': 72.0300018787384, 'secs': 494.1052327156067}
++ out=steal_resnet20_n5000_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_projK_oracle.json ']'
++ python3 steal.py resnet20 5000 projK_oracle
+{'arch': 'resnet20', 'n': 5000, 'cond': 'projK_oracle', 'steps': 1000, 'acc_init': 9.369999915361404, 'acc': 73.64000082015991, 'fidelity': 75.72000026702881, 'secs': 485.5829424858093}
++ out=steal_resnet20_n5000_ps_arrow_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_ps_arrow_oracle.json ']'
++ python3 steal.py resnet20 5000 ps_arrow_oracle
+{'arch': 'resnet20', 'n': 5000, 'cond': 'ps_arrow_oracle', 'steps': 1000, 'acc_init': 9.98999997973442, 'acc': 74.04000163078308, 'fidelity': 76.3700008392334, 'secs': 469.5956971645355}
++ out=steal_resnet20_n5000_left_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_left_projK_oracle.json ']'
++ python3 steal.py resnet20 5000 left_projK_oracle
+{'arch': 'resnet20', 'n': 5000, 'cond': 'left_projK_oracle', 'steps': 1000, 'acc_init': 9.459999948740005, 'acc': 72.83999919891357, 'fidelity': 74.73999857902527, 'secs': 480.9238247871399}
++ out=steal_resnet20_n5000_scratch.json
++ shift
++ '[' -f results/steal_resnet20_n5000_scratch.json ']'
++ return 0
++ out=steal_resnet20_n5000_plain.json
++ shift
++ '[' -f results/steal_resnet20_n5000_plain.json ']'
++ return 0
++ out=steal_resnet20_n5000_ghost.json
++ shift
++ '[' -f results/steal_resnet20_n5000_ghost.json ']'
++ return 0
++ out=steal_resnet20_n5000_arrow_own.json
++ shift
++ '[' -f results/steal_resnet20_n5000_arrow_own.json ']'
++ return 0
++ out=steal_resnet20_n5000_unmix_own.json
++ shift
++ '[' -f results/steal_resnet20_n5000_unmix_own.json ']'
++ return 0
++ out=steal_resnet20_n5000_arrow_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_arrow_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_unmix_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_unmix_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_projK_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_ps_arrow_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_ps_arrow_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_left_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_left_projK_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_scratch.json
++ shift
++ '[' -f results/steal_resnet20_n5000_scratch.json ']'
++ return 0
++ out=steal_resnet20_n5000_plain.json
++ shift
++ '[' -f results/steal_resnet20_n5000_plain.json ']'
++ return 0
++ out=steal_resnet20_n5000_ghost.json
++ shift
++ '[' -f results/steal_resnet20_n5000_ghost.json ']'
++ return 0
++ out=steal_resnet20_n5000_arrow_own.json
++ shift
++ '[' -f results/steal_resnet20_n5000_arrow_own.json ']'
++ return 0
++ out=steal_resnet20_n5000_unmix_own.json
++ shift
++ '[' -f results/steal_resnet20_n5000_unmix_own.json ']'
++ return 0
++ out=steal_resnet20_n5000_arrow_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_arrow_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_unmix_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_unmix_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_projK_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_ps_arrow_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_ps_arrow_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_left_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_left_projK_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_scratch.json
++ shift
++ '[' -f results/steal_resnet20_n5000_scratch.json ']'
++ return 0
++ out=steal_resnet20_n5000_plain.json
++ shift
++ '[' -f results/steal_resnet20_n5000_plain.json ']'
++ python3 steal.py resnet20 5000 plain
+{'arch': 'resnet20', 'n': 5000, 'cond': 'plain', 'steps': 1000, 'acc_init': 10.580000281333923, 'acc': 74.44999814033508, 'fidelity': 76.44000053405762, 'secs': 474.50405836105347}
++ out=steal_resnet20_n5000_ghost.json
++ shift
++ '[' -f results/steal_resnet20_n5000_ghost.json ']'
++ python3 steal.py resnet20 5000 ghost
+{'arch': 'resnet20', 'n': 5000, 'cond': 'ghost', 'steps': 1000, 'acc_init': 10.000000149011612, 'acc': 68.19000244140625, 'fidelity': 69.98000144958496, 'secs': 474.22455048561096}
++ out=steal_resnet20_n5000_arrow_own.json
++ shift
++ '[' -f results/steal_resnet20_n5000_arrow_own.json ']'
++ python3 steal.py resnet20 5000 arrow_own
+{'arch': 'resnet20', 'n': 5000, 'cond': 'arrow_own', 'steps': 1000, 'acc_init': 10.000000149011612, 'acc': 70.13000249862671, 'fidelity': 72.10000157356262, 'secs': 455.7414708137512}
++ out=steal_resnet20_n5000_unmix_own.json
++ shift
++ '[' -f results/steal_resnet20_n5000_unmix_own.json ']'
++ python3 steal.py resnet20 5000 unmix_own
+{'arch': 'resnet20', 'n': 5000, 'cond': 'unmix_own', 'steps': 1000, 'acc_init': 10.06999984383583, 'acc': 67.04000234603882, 'fidelity': 68.98999810218811, 'secs': 465.4024715423584}
++ out=steal_resnet20_n5000_arrow_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_arrow_oracle.json ']'
++ python3 steal.py resnet20 5000 arrow_oracle
+{'arch': 'resnet20', 'n': 5000, 'cond': 'arrow_oracle', 'steps': 1000, 'acc_init': 10.010000318288803, 'acc': 71.24000191688538, 'fidelity': 73.30999970436096, 'secs': 454.96346044540405}
++ out=steal_resnet20_n5000_unmix_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_unmix_oracle.json ']'
++ python3 steal.py resnet20 5000 unmix_oracle
+{'arch': 'resnet20', 'n': 5000, 'cond': 'unmix_oracle', 'steps': 1000, 'acc_init': 10.090000182390213, 'acc': 68.09999942779541, 'fidelity': 69.9500024318695, 'secs': 476.4758358001709}
++ out=steal_resnet20_n5000_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_projK_oracle.json ']'
++ python3 steal.py resnet20 5000 projK_oracle
+{'arch': 'resnet20', 'n': 5000, 'cond': 'projK_oracle', 'steps': 1000, 'acc_init': 10.119999945163727, 'acc': 70.63999772071838, 'fidelity': 72.87999987602234, 'secs': 452.08401441574097}
++ out=steal_resnet20_n5000_ps_arrow_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_ps_arrow_oracle.json ']'
++ python3 steal.py resnet20 5000 ps_arrow_oracle
+{'arch': 'resnet20', 'n': 5000, 'cond': 'ps_arrow_oracle', 'steps': 1000, 'acc_init': 9.709999710321426, 'acc': 70.5299973487854, 'fidelity': 72.53000140190125, 'secs': 447.3759751319885}
++ out=steal_resnet20_n5000_left_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_left_projK_oracle.json ']'
++ python3 steal.py resnet20 5000 left_projK_oracle
+{'arch': 'resnet20', 'n': 5000, 'cond': 'left_projK_oracle', 'steps': 1000, 'acc_init': 10.029999911785126, 'acc': 70.16000151634216, 'fidelity': 72.08999991416931, 'secs': 438.32395911216736}
++ out=steal_resnet20_n5000_scratch.json
++ shift
++ '[' -f results/steal_resnet20_n5000_scratch.json ']'
++ return 0
++ out=steal_resnet20_n5000_plain.json
++ shift
++ '[' -f results/steal_resnet20_n5000_plain.json ']'
++ return 0
++ out=steal_resnet20_n5000_ghost.json
++ shift
++ '[' -f results/steal_resnet20_n5000_ghost.json ']'
++ return 0
++ out=steal_resnet20_n5000_arrow_own.json
++ shift
++ '[' -f results/steal_resnet20_n5000_arrow_own.json ']'
++ return 0
++ out=steal_resnet20_n5000_unmix_own.json
++ shift
++ '[' -f results/steal_resnet20_n5000_unmix_own.json ']'
++ return 0
++ out=steal_resnet20_n5000_arrow_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_arrow_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_unmix_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_unmix_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_projK_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_ps_arrow_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_ps_arrow_oracle.json ']'
++ return 0
++ out=steal_resnet20_n5000_left_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n5000_left_projK_oracle.json ']'
++ return 0

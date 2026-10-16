@@ -1,0 +1,50 @@
+[
+ {
+  "arch": "resnet20",
+  "budget": 1000,
+  "policy": "probs",
+  "acc": 60.350000858306885,
+  "fidelity": 61.71000003814697,
+  "steps": 1000
+ },
+ {
+  "arch": "resnet20",
+  "budget": 1000,
+  "policy": "label",
+  "acc": 57.03999996185303,
+  "fidelity": 57.77000188827515,
+  "steps": 1000
+ },
+ {
+  "arch": "resnet20",
+  "budget": 5000,
+  "policy": "probs",
+  "acc": 72.2100019454956,
+  "fidelity": 74.39000010490417,
+  "steps": 1000
+ },
+ {
+  "arch": "resnet20",
+  "budget": 5000,
+  "policy": "label",
+  "acc": 70.53999900817871,
+  "fidelity": 72.46999740600586,
+  "steps": 1000
+ },
+ {
+  "arch": "resnet20",
+  "budget": 10000,
+  "policy": "probs",
+  "acc": 75.65000057220459,
+  "fidelity": 78.21999788284302,
+  "steps": 1000
+ },
+ {
+  "arch": "resnet20",
+  "budget": 10000,
+  "policy": "label",
+  "acc": 74.18000102043152,
+  "fidelity": 76.48000121116638,
+  "steps": 1000
+ }
+]

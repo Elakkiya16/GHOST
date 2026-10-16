@@ -1,0 +1,54 @@
+[
+ {
+  "scenario": "Valid token, fresh counter",
+  "outcome": "served"
+ },
+ {
+  "scenario": "Replay of the same token and counter",
+  "outcome": "refused"
+ },
+ {
+  "scenario": "Valid token reused for a different input",
+  "outcome": "refused"
+ },
+ {
+  "scenario": "Forged token (random 256-bit string)",
+  "outcome": "refused"
+ },
+ {
+  "scenario": "Direct REE execution without authorisation",
+  "outcome": "refused"
+ },
+ {
+  "scenario": "Valid token, counter 4 (budget 5)",
+  "outcome": "served"
+ },
+ {
+  "scenario": "Valid token, counter 5 (budget 5)",
+  "outcome": "served"
+ },
+ {
+  "scenario": "Valid token, counter 6 (budget 5)",
+  "outcome": "served"
+ },
+ {
+  "scenario": "Valid token, counter 7 (budget 5)",
+  "outcome": "served"
+ },
+ {
+  "scenario": "Valid token, counter 8 (budget 5)",
+  "outcome": "refused"
+ },
+ {
+  "scenario": "Valid token, counter 9 (budget 5)",
+  "outcome": "refused"
+ },
+ {
+  "scenario": "Valid token, counter 10 (budget 5)",
+  "outcome": "refused"
+ },
+ {
+  "scenario": "Valid token, counter 11 (budget 5)",
+  "outcome": "refused"
+ }
+]

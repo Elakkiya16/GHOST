@@ -1,0 +1,68 @@
+[
+ {
+  "arch": "resnet20",
+  "engine": "plain",
+  "policy": "probs",
+  "auc_loss": 0.52867177,
+  "auc_confidence": 0.522121485,
+  "auc_correctness": 0.5285500000000001,
+  "auc_mentropy": 0.5288187,
+  "train_acc": 95.6499993801117,
+  "test_acc": 89.9399995803833
+ },
+ {
+  "arch": "resnet20",
+  "engine": "plain",
+  "policy": "top1_rounded",
+  "auc_loss": 0.5357309699999999,
+  "auc_confidence": 0.5271826449999999,
+  "auc_correctness": 0.5285500000000001,
+  "auc_mentropy": 0.534761935,
+  "train_acc": 95.6499993801117,
+  "test_acc": 89.9399995803833
+ },
+ {
+  "arch": "resnet20",
+  "engine": "plain",
+  "policy": "label",
+  "auc_loss": 0.5285500000000001,
+  "auc_confidence": 0.5,
+  "auc_correctness": 0.5285500000000001,
+  "auc_mentropy": 0.52583241,
+  "train_acc": 95.6499993801117,
+  "test_acc": 89.9399995803833
+ },
+ {
+  "arch": "resnet20",
+  "engine": "ghost",
+  "policy": "probs",
+  "auc_loss": 0.5286719799999999,
+  "auc_confidence": 0.5221216799999999,
+  "auc_correctness": 0.5285500000000001,
+  "auc_mentropy": 0.52881908,
+  "train_acc": 95.6499993801117,
+  "test_acc": 89.9399995803833
+ },
+ {
+  "arch": "resnet20",
+  "engine": "ghost",
+  "policy": "top1_rounded",
+  "auc_loss": 0.5357309699999999,
+  "auc_confidence": 0.5271826449999999,
+  "auc_correctness": 0.5285500000000001,
+  "auc_mentropy": 0.534761935,
+  "train_acc": 95.6499993801117,
+  "test_acc": 89.9399995803833
+ },
+ {
+  "arch": "resnet20",
+  "engine": "ghost",
+  "policy": "label",
+  "auc_loss": 0.5285500000000001,
+  "auc_confidence": 0.5,
+  "auc_correctness": 0.5285500000000001,
+  "auc_mentropy": 0.52583241,
+  "train_acc": 95.6499993801117,
+  "test_acc": 89.9399995803833
+ }
+]

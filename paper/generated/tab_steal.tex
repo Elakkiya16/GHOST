@@ -1,0 +1,21 @@
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}llcc@{}}
+\toprule
+Starting point & Ref. & Weight err. & Acc.\ (\%) \\
+\midrule
+Scratch & -- & -- & 70.1 \\
+Plaintext edge weights & -- & -- & 74.4 \\
+\midrule
+GHOST tensors, direct & -- & 1.957 & 68.2 \\
+GHOST, direction matching & own & 1.415 & 70.1 \\
+GHOST, LS un-mixing & own & $>10$ & 67.0 \\
+GHOST, direction matching & indep. & 1.423 & 71.2 \\
+GHOST, LS un-mixing & indep. & $>10$ & 68.1 \\
+GHOST, projection, $B$ given & indep. & 1.094 & 70.6 \\
+\midrule
+P\&S ablation, direction matching & indep. & 1.426 & 70.5 \\
+Left-only ablation, projection & indep. & 1.094 & 70.2 \\
+\bottomrule
+\multicolumn{4}{@{}l@{}}{\footnotesize Weight error of the reference model alone: 1.420.}
+\end{tabular}

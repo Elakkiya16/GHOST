@@ -1,0 +1,20 @@
++ out=victim_resnet20_s1.json
++ shift
++ '[' -f results/victim_resnet20_s1.json ']'
++ python3 train_victim.py resnet20 30 1
++ out=victim_resnet20_s1.json
++ shift
++ '[' -f results/victim_resnet20_s1.json ']'
++ return 0
++ out=victim_resnet20_s1.json
++ shift
++ '[' -f results/victim_resnet20_s1.json ']'
++ return 0
++ out=victim_resnet20_s1.json
++ shift
++ '[' -f results/victim_resnet20_s1.json ']'
++ return 0
++ out=victim_resnet20_s1.json
++ shift
++ '[' -f results/victim_resnet20_s1.json ']'
++ return 0

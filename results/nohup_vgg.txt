@@ -1,0 +1,8 @@
++ out=victim_vgg11h_s0.json
++ shift
++ '[' -f results/victim_vgg11h_s0.json ']'
++ python3 train_victim.py vgg11h 30 0
++ out=victim_vgg11h_s0.json
++ shift
++ '[' -f results/victim_vgg11h_s0.json ']'
++ python3 train_victim.py vgg11h 30 0

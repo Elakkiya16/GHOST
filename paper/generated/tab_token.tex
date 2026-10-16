@@ -1,0 +1,20 @@
+\footnotesize
+\begin{tabular}{@{}lc@{}}
+\toprule
+Request & TEE response \\
+\midrule
+Valid token, fresh counter & Served \\
+Replay of the same token and counter & Refused \\
+Valid token reused for a different input & Refused \\
+Forged token (random 256-bit string) & Refused \\
+Protected pipeline run without authorisation & Refused \\
+Valid token, counter 4 (budget 5) & Served \\
+Valid token, counter 5 (budget 5) & Served \\
+Valid token, counter 6 (budget 5) & Served \\
+Valid token, counter 7 (budget 5) & Served \\
+Valid token, counter 8 (budget 5) & Refused \\
+Valid token, counter 9 (budget 5) & Refused \\
+Valid token, counter 10 (budget 5) & Refused \\
+Valid token, counter 11 (budget 5) & Refused \\
+\bottomrule
+\end{tabular}

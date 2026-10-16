@@ -1,0 +1,10 @@
++ out=mia_vgg11h.json
++ shift
++ '[' -f results/mia_vgg11h.json ']'
++ python3 extract_mia.py vgg11h mia
+{'arch': 'vgg11h', 'engine': 'plain', 'policy': 'probs', 'auc_loss': 0.549785995, 'auc_confidence': 0.5426090650000001, 'auc_correctness': 0.5393, 'auc_mentropy': 0.54990033, 'train_acc': 97.18000292778015, 'test_acc': 89.31999802589417}
+{'arch': 'vgg11h', 'engine': 'plain', 'policy': 'top1_rounded', 'auc_loss': 0.5586106, 'auc_confidence': 0.5470733350000001, 'auc_correctness': 0.5393, 'auc_mentropy': 0.557002115, 'train_acc': 97.18000292778015, 'test_acc': 89.31999802589417}
+{'arch': 'vgg11h', 'engine': 'plain', 'policy': 'label', 'auc_loss': 0.5393, 'auc_confidence': 0.5, 'auc_correctness': 0.5393, 'auc_mentropy': 0.53721785, 'train_acc': 97.18000292778015, 'test_acc': 89.31999802589417}
+{'arch': 'vgg11h', 'engine': 'ghost', 'policy': 'probs', 'auc_loss': 0.549786045, 'auc_confidence': 0.542609145, 'auc_correctness': 0.5393, 'auc_mentropy': 0.54990049, 'train_acc': 97.18000292778015, 'test_acc': 89.31999802589417}
+{'arch': 'vgg11h', 'engine': 'ghost', 'policy': 'top1_rounded', 'auc_loss': 0.5586106, 'auc_confidence': 0.5470733350000001, 'auc_correctness': 0.5393, 'auc_mentropy': 0.557002115, 'train_acc': 97.18000292778015, 'test_acc': 89.31999802589417}
+{'arch': 'vgg11h', 'engine': 'ghost', 'policy': 'label', 'auc_loss': 0.5393, 'auc_confidence': 0.5, 'auc_correctness': 0.5393, 'auc_mentropy': 0.53721785, 'train_acc': 97.18000292778015, 'test_acc': 89.31999802589417}

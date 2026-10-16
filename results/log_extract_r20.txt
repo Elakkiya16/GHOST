@@ -1,0 +1,4 @@
++ out=extract_resnet20.json
++ shift
++ '[' -f results/extract_resnet20.json ']'
++ return 0

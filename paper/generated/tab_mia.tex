@@ -1,0 +1,14 @@
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+Release policy & Model & Loss & Conf. & Mod.\ entropy & Correctness \\
+\midrule
+Probability vector & Original & 0.529 & 0.522 & 0.529 & 0.529 \\
+ & GHOST & 0.529 & 0.522 & 0.529 & 0.529 \\
+Label + rounded conf. & Original & 0.536 & 0.527 & 0.535 & 0.529 \\
+ & GHOST & 0.536 & 0.527 & 0.535 & 0.529 \\
+Label only & Original & 0.529 & 0.500 & 0.526 & 0.529 \\
+ & GHOST & 0.529 & 0.500 & 0.526 & 0.529 \\
+\bottomrule
+\end{tabular}

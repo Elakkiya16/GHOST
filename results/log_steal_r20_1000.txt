@@ -1,0 +1,45 @@
++ out=steal_resnet20_n1000_scratch.json
++ shift
++ '[' -f results/steal_resnet20_n1000_scratch.json ']'
++ python3 steal.py resnet20 1000 scratch
+{'arch': 'resnet20', 'n': 1000, 'cond': 'scratch', 'steps': 1000, 'acc_init': 9.809999912977219, 'acc': 55.320000648498535, 'fidelity': 56.16000294685364, 'secs': 434.09253668785095}
++ out=steal_resnet20_n1000_plain.json
++ shift
++ '[' -f results/steal_resnet20_n1000_plain.json ']'
++ python3 steal.py resnet20 1000 plain
+{'arch': 'resnet20', 'n': 1000, 'cond': 'plain', 'steps': 1000, 'acc_init': 10.580000281333923, 'acc': 63.01000118255615, 'fidelity': 64.31999802589417, 'secs': 453.78502798080444}
++ out=steal_resnet20_n1000_ghost.json
++ shift
++ '[' -f results/steal_resnet20_n1000_ghost.json ']'
++ python3 steal.py resnet20 1000 ghost
+{'arch': 'resnet20', 'n': 1000, 'cond': 'ghost', 'steps': 1000, 'acc_init': 10.000000149011612, 'acc': 52.480000257492065, 'fidelity': 52.97999978065491, 'secs': 451.2009222507477}
++ out=steal_resnet20_n1000_unmix_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n1000_unmix_oracle.json ']'
++ python3 steal.py resnet20 1000 unmix_oracle
+{'arch': 'resnet20', 'n': 1000, 'cond': 'unmix_oracle', 'steps': 1000, 'acc_init': 10.090000182390213, 'acc': 54.329997301101685, 'fidelity': 55.04000186920166, 'secs': 432.57035183906555}
++ out=steal_resnet20_n1000_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n1000_projK_oracle.json ']'
++ python3 steal.py resnet20 1000 projK_oracle
+{'arch': 'resnet20', 'n': 1000, 'cond': 'projK_oracle', 'steps': 1000, 'acc_init': 10.119999945163727, 'acc': 56.70999884605408, 'fidelity': 57.70000219345093, 'secs': 465.6297450065613}
++ out=steal_resnet20_n1000_scratch.json
++ shift
++ '[' -f results/steal_resnet20_n1000_scratch.json ']'
++ return 0
++ out=steal_resnet20_n1000_plain.json
++ shift
++ '[' -f results/steal_resnet20_n1000_plain.json ']'
++ return 0
++ out=steal_resnet20_n1000_ghost.json
++ shift
++ '[' -f results/steal_resnet20_n1000_ghost.json ']'
++ return 0
++ out=steal_resnet20_n1000_unmix_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n1000_unmix_oracle.json ']'
++ return 0
++ out=steal_resnet20_n1000_projK_oracle.json
++ shift
++ '[' -f results/steal_resnet20_n1000_projK_oracle.json ']'
++ return 0
